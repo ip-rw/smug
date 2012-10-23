@@ -14,7 +14,7 @@ class Database {
             $this->connection = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD); // Constants may be replaced with config at some point.
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Exception mode.
         } catch (PDOException $e) {
-            $this->errorControl->addError("SQL Error: " + $e->getMessage());
+            $this->errorControl->addError("SQL Error: " . $e->getMessage());
         }
     }
 
@@ -24,7 +24,7 @@ class Database {
             $result->execute($parameters);
             return $result;
         } catch (PDOException $e) {
-           $this->errorControl->addError("SQL Error: " + $e->getMessage());
+           $this->errorControl->addError("SQL Error: " . $e->getMessage());
         }
     }
 
@@ -32,16 +32,16 @@ class Database {
         try {
             return $this->connection->lastInsertId();
         } catch (PDOException $e) {
-            $this->errorControl->addError("SQL Error: " + $e->getMessage());
+            $this->errorControl->addError("SQL Error: " . $e->getMessage());
         }
     }
 
     public function getCount($result) {
-        try {
-            return $result->rowCount;
-        } catch (PDOException $e) {
-            $this->errorControl->addError("SQL Error: " + $e->getMessage());
-        }
+        return $result->rowCount;
+    }
+
+    public function getNext($result) {
+        return $result->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT);
     }
 
 //    Should be using parametrized queries.
