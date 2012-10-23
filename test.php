@@ -1,6 +1,6 @@
 <?php
-    // Just a test file. Uses the TestObjects
-    // IDE git integration test.
+    // Just a test file. Uses the TestObjects defined in base.
+
     require_once('framework/common.php');
     header("content-type: text/plain");
 
