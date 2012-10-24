@@ -22,7 +22,6 @@ class DataControl {
 	var $count = 0;
 	
 	public function __construct() {
-		$this->databaseControl = &CoreFactory::getDatabaseConnection();
 		$this->errorControl = &CoreFactory::getErrorControl();
 	}
 	
@@ -91,7 +90,7 @@ class DataControl {
 	// Returns the next DataEntity in the result set. Think: while ($entity = $dataControl->getNext()) {
 	public function getNext() {
 		if ($this->dataResult == null) $this->retrieve();
-		$result = mysql_fetch_array($this->dataResult, MYSQL_ASSOC);
+		$result = $this->databaseControl($this->dataResult, MYSQL_ASSOC);
 		if ($result == null) return false;
 		$this->data = $result;
 		$dataEntity = $this->getDataEntity();
