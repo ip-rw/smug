@@ -12,10 +12,10 @@ class MySqlUpdateBuilder implements IInsertUpdateBuilder {
 
     public function getStatement() {
         $query = $this->getQuery();
-        $db = MySQLDriver::getConnection();
+        $db = DBDriver::getConnection();
         $statement = $db->prepare($query);
-        for ($i=0;$i<count($this->bindValues);$i++) {
-            $statement->bindValue($i+1, $this->bindValues[$i]);
+        for ($i = 0; $i < count($this->bindValues); $i++) {
+            $statement->bindValue($i + 1, $this->bindValues[$i]);
         }
         return $statement;
     }
@@ -33,7 +33,7 @@ class MySqlUpdateBuilder implements IInsertUpdateBuilder {
     // PHP's native array_diff pisses me off, and as far as I can tell, doesn't work properly under certain conditions. Bug report submitted.
     function array_diff_proper($array_a, $array_b) {
         $return = array();
-        foreach ($array_a as $key=>$value) {
+        foreach ($array_a as $key => $value) {
             if (in_array($key, $array_b) && $array_b[$key] != null) {
                 if ($array_b[$key] != $value) {
                     $return[$key] = $value;
@@ -71,10 +71,10 @@ class MySqlInsertBuilder implements IInsertUpdateBuilder {
 
     public function getStatement() {
         $query = $this->getQuery();
-        $db = MySQLDriver::getConnection();
+        $db = DBDriver::getConnection();
         $statement = $db->prepare($query);
-        for ($i=0;$i<count($this->bindValues);$i++) {
-            $statement->bindValue($i+1, $this->bindValues[$i]);
+        for ($i = 0; $i < count($this->bindValues); $i++) {
+            $statement->bindValue($i + 1, $this->bindValues[$i]);
         }
         return $statement;
     }
@@ -93,7 +93,7 @@ class MySqlInsertBuilder implements IInsertUpdateBuilder {
     public function getColumnsSql() {
         $columns = "";
         foreach ($this->dataEntity->fieldMeta as $field) {
-            if ($field->column != $this->dataControl->key) {
+            if ($field->column != $this->dataEntity->dataControl->key) {
                 $columns .= "`" . $field->column . "`, ";
             }
         }
@@ -104,7 +104,7 @@ class MySqlInsertBuilder implements IInsertUpdateBuilder {
     public function getValuesSql() {
         $values = "";
         foreach ($this->dataEntity->fieldMeta as $field) {
-            if ($field->column != $this->dataControl->key) {
+            if ($field->column != $this->dataEntity->dataControl->key) {
                 $values .= '?, ';
                 $this->bindValues[] = $this->dataEntity->get($field->column);
 
@@ -114,4 +114,5 @@ class MySqlInsertBuilder implements IInsertUpdateBuilder {
         return $values;
     }
 }
+
 ?>

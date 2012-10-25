@@ -1,12 +1,12 @@
 <?php
 class OperatorEnum {
-    const Equal = 0;
-    const NotEqual = 1;
-    const GreaterThan = 2;
-    const GreaterThanOrEqualTo = 3;
-    const LessThan = 4;
-    const LessThanOrEqualTo = 5;
-    const Like = 7;
+    const Equal                 = 0;
+    const NotEqual              = 1;
+    const GreaterThan           = 2;
+    const GreaterThanOrEqualTo  = 3;
+    const LessThan              = 4;
+    const LessThanOrEqualTo     = 5;
+    const Like                  = 7;
 }
 
 class FilterControl {
@@ -18,6 +18,12 @@ class FilterControl {
     var $asc = false;
     var $limit = null;
     var $offset = null;
+
+    public function __construct($dataControl) {
+        $this->addTable($dataControl->table);
+        $this->addColumn($dataControl->table, "*");
+        $this->setOrderBy($dataControl->table, $dataControl->orderBy, $dataControl->asc);
+    }
 
     public function addTable($table) {
         $this->tables[] = $table;

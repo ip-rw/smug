@@ -9,12 +9,15 @@ interface IDBDriver {
 // Given a DataEntity prepare an INSERT/UPDATE PDOStatement and bindValues.
 interface IInsertUpdateBuilder {
     public function __construct($dataEntity);
+
     public function getStatement();
 }
 
 // Given a filter object prepare a SELECT PDOStatement and bindValues.
 interface ISelectBuilder {
     public function __construct($filter);
+
     public function getStatement();
 }
+
 ?>

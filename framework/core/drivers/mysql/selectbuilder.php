@@ -14,8 +14,8 @@ class MySqlSelectBuilder implements ISelectBuilder {
         $query = $this->getQuery();
         $db = DBDriver::getConnection();
         $statement = $db->prepare($query);
-        for ($i=0;$i<count($this->bindValues);$i++) {
-            $statement->bindValue($i+1, $this->bindValues[$i]);
+        for ($i = 0; $i < count($this->bindValues); $i++) {
+            $statement->bindValue($i + 1, $this->bindValues[$i]);
         }
         return $statement;
     }
@@ -41,7 +41,7 @@ class MySqlSelectBuilder implements ISelectBuilder {
 
     private function getColumnSql() {
         $columns = "";
-        foreach ($this->filter->columns as $table=>$column) {
+        foreach ($this->filter->columns as $table => $column) {
             if ($column == "*") {
                 $columns .= "`$table`.$column, ";
             } else {
@@ -55,7 +55,7 @@ class MySqlSelectBuilder implements ISelectBuilder {
         $joins = "";
         if ($this->filter->joins == null) return null;
         foreach ($this->filter->joins as $join) {
-            $joins .= $join->joinType . " `" . $join->table1 . "` ON `" . $join->table1 . "`.`" . $join->column1 . "` " . DBDriver::getOperator($join->compareOperator) . " `". $join->table2 . "`.`" . $join->column2 . "` ";
+            $joins .= $join->joinType . " `" . $join->table1 . "` ON `" . $join->table1 . "`.`" . $join->column1 . "` " . DBDriver::getOperator($join->compareOperator) . " `" . $join->table2 . "`.`" . $join->column2 . "` ";
         }
         return $joins;
     }
@@ -82,11 +82,11 @@ class MySqlSelectBuilder implements ISelectBuilder {
             $class = get_class($conditional);
             if ($class == "ConditionalGroup") {
                 if ($include == true) {
-                    $output .=  " " . $conditional->operator;
+                    $output .= " " . $conditional->operator;
                 }
                 $output .= " ( ";
                 $this->getConditionalSqlFromGroup($conditional->conditionals, $output);
-                $output .=  ")";
+                $output .= ")";
                 $include = true;
             } else {
                 $table = $conditional->table;
