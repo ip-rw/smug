@@ -21,8 +21,8 @@ class DataControl {
     var $count          = 0;
 
     public function __construct() {
-        $this->connection = & DBDriver::getConnection();
-        $this->errorControl = & CoreFactory::getErrorControl();
+        $this->connection = &DBDriver::getConnection();
+        $this->errorControl = &CoreFactory::getErrorControl();
     }
 
     // Create a blank dataEntity (with defaults);

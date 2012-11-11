@@ -17,5 +17,5 @@ require_once(SMUG_PATH . "/core/drivers/" . strtolower(DB_DRIVER) . "/driver.php
 // This is something of a hack, but it's marginally better than calling each driver class DBDriver.
 class_alias(DB_DRIVER . "Driver", 'DBDriver');
 
-$errorControl = & CoreFactory::getErrorControl();
+$errorControl = &CoreFactory::getErrorControl();
 ?>

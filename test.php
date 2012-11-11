@@ -22,6 +22,6 @@ while ($test = $testControl->getNext()) {
     $testGroup = $test->getRelation("TestGroupID");
     echo "{$test->TestName} ({$testGroup->TestGroupName})<br>";
 }
-$errors = & CoreFactory::getErrorControl();
+$errors = &CoreFactory::getErrorControl();
 echo $errors->getErrorHtml(0);
 ?>
