@@ -142,7 +142,7 @@ class DataControl {
                         $validates = false;
                     }
                 }
-                if ($field->type == SMUG_TYPE_INTEGER || $field->type == SMUG_TYPE_LONG) {
+                if ($field->type == SMUG_TYPE_INTEGER) {
                     if (!is_numeric($value)) {
                         $this->errorControl->addError("'" . $field->name . "' is not a number.");
                         $validates = false;
