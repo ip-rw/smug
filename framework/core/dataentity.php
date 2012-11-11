@@ -20,11 +20,13 @@ class DataEntity {
         return $this->data[$column];
     }
 
+    // FIXME: This is MySQL specific.
+    // $value should be converted to epoc time, and then the DB driver should handle the conversion to it's preferred format.
     public function set($column, $value) {
         foreach ($this->fieldMeta as $field) {
             if ($field->column == $column) {
                 switch ($field->type) {
-                    case SQUIB_TYPE_DATE:
+                    case SMUG_TYPE_DATE:
                         $value = date("Y-m-d", strtotime($value));
                         break;
                     default:
@@ -63,11 +65,13 @@ class DataEntity {
         return $this->get($key);
     }
 
+    // FIXME: Data types need to handle their own formatting.
+    // Each type is going to need some helper classes, and/or we bring in formatters and types have a default formatter.
     public function getFormatted($key, $format = "d/m/Y G:i:s") {
         foreach ($this->fieldMeta as $field) {
             if ($field->column == $key) {
                 switch ($field->type) {
-                    case SQUIB_TYPE_DATE:
+                    case SMUG_TYPE_DATE:
                         return date($format, strtotime($this->get($key)));
                         break;
                     default:

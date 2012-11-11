@@ -1,7 +1,7 @@
 <?php
-require_once(SQUIB_PATH . "/common.php");
-require_once(SQUIB_PATH . "/core/filter.php");
-require_once(SQUIB_PATH . "/core/dataentity.php");
+require_once(SMUG_PATH . "/common.php");
+require_once(SMUG_PATH . "/core/filter.php");
+require_once(SMUG_PATH . "/core/dataentity.php");
 
 // Here we really have the guts of the framework.
 // Extend this class to create your DataControllers, see base for examples.
@@ -129,7 +129,8 @@ class DataControl {
         return $dataEntity;
     }
 
-    // Needs redoing when we bring in validators.
+    // FIXME: Data types should to handle their own validation.
+    // Each type is going to need some helper classes, and/or we bring in validators and types have a default validator.
     public function validate($dataEntity) {
         $validates = true;
         foreach ($this->fieldMeta as $field) {
@@ -141,13 +142,13 @@ class DataControl {
                         $validates = false;
                     }
                 }
-                if ($field->type == SQUIB_TYPE_INTEGER || $field->type == SQUIB_TYPE_LONG) {
+                if ($field->type == SMUG_TYPE_INTEGER || $field->type == SMUG_TYPE_LONG) {
                     if (!is_numeric($value)) {
                         $this->errorControl->addError("'" . $field->name . "' is not a number.");
                         $validates = false;
                     }
                 }
-                if ($field->type == SQUIB_TYPE_DATE) {
+                if ($field->type == SMUG_TYPE_DATE) {
                     if (strtotime($value) === false) {
                         $this->errorControl->addError("'" . $field->name . "' is not a valid timestamp.");
                         $validates = false;

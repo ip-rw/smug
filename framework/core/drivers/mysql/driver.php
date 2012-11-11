@@ -1,10 +1,10 @@
 <?php
-require_once(SQUIB_PATH . "/core/dbms.php");
-require_once(SQUIB_PATH . "/core/filter.php");
-require_once(SQUIB_PATH . "/core/drivers/mysql/insertupdatebuilder.php");
-require_once(SQUIB_PATH . "/core/drivers/mysql/selectbuilder.php");
+require_once(SMUG_PATH . "/core/dbms.php");
+require_once(SMUG_PATH . "/core/filter.php");
+require_once(SMUG_PATH . "/core/drivers/mysql/insertupdatebuilder.php");
+require_once(SMUG_PATH . "/core/drivers/mysql/selectbuilder.php");
 
-class DBDriver implements IDBDriver {
+class MySqlDriver implements IDBDriver {
 
     public static function getConnection() {
         static $connection = null;
@@ -45,7 +45,7 @@ class DBDriver implements IDBDriver {
     }
 }
 
-// This just saved an hour. Result.
+// FIXME: Automatic CREATE TABLE stuff is very useful, we need to work this functionality into the Driver interfaces.
 //public function createMySql() {
 //    $sql = "CREATE TABLE `" . $this->table . "`\n(";
 //    foreach ($this->fieldMeta as $field) {
@@ -55,3 +55,51 @@ class DBDriver implements IDBDriver {
 //    $sql .= ");\n\n";
 //    return $sql;
 //}
+
+// Taken from fieldmeta.php
+//    public function getColumnMySql($dataControl) {
+//        $sql = "`" . $this->column . "`";
+//        $length = ($this->length == -1) ? "MAX" : $this->length;
+//        $default = '';
+//        switch ($this->type) {
+//            case SMUG_TYPE_INTEGER:
+//                $default = ($this->defaultValue != "" && $this->defaultValue != null) ? " DEFAULT " . $this->defaultValue : null;
+//                $sql .= " INT ";
+//                break;
+//            case SMUG_TYPE_TEXT:
+//                $default = ($this->defaultValue != "" && $this->defaultValue != null) ? "DEFAULT '" . $this->defaultValue . "'" : null;
+//                if ($this->length != -1) {
+//                    $sql .= " VARCHAR($length) ";
+//                } else {
+//                    $sql .= " TEXT ";
+//                }
+//                break;
+//            case SMUG_TYPE_DATE:
+//                $default = ($this->defaultValue != null && $this->defaultValue != "") ? " DEFAULT $this->defaultValue " : null;
+//                $sql .= " TIMESTAMP ";
+//                break;
+//            case SMUG_TYPE_BOOL:
+//                if ($this->defaultValue !== null) {
+//                    if ($this->defaultValue == true) {
+//                        $default = " DEFAULT 1 ";
+//                    } elseif ($this->defaultValue == false) {
+//                        $default = " DEFAULT 0 ";
+//                    }
+//                }
+//                $sql .= " BOOLEAN ";
+//                break;
+//        }
+//
+//        if ($this->notNull == true) {
+//            $sql .= " NOT NULL ";
+//        }
+//
+//        if ($this->column == $dataControl->key) {
+//            $sql .= " AUTO_INCREMENT PRIMARY KEY ";
+//        }
+//        if ($this->unique == true) {
+//            $sql .= " UNIQUE ";
+//        }
+//        $sql .= $default;
+//        return $sql;
+//    }

@@ -1,6 +1,6 @@
 <?php
-require_once(SQUIB_PATH . "/core/dbms.php");
-require_once(SQUIB_PATH . "/core/drivers/mysql/driver.php");
+require_once(SMUG_PATH . "/core/dbms.php");
+require_once(SMUG_PATH . "/core/drivers/mysql/driver.php");
 
 class MySqlSelectBuilder implements ISelectBuilder {
     var $filter = null;

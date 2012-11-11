@@ -1,6 +1,6 @@
 <?php
-require_once(SQUIB_PATH . "/core/dbms.php");
-require_once(SQUIB_PATH . "/core/drivers/mysql/driver.php");
+require_once(SMUG_PATH . "/core/dbms.php");
+require_once(SMUG_PATH . "/core/drivers/mysql/driver.php");
 
 class MySqlUpdateBuilder implements IInsertUpdateBuilder {
     var $dataEntity = null;
@@ -30,7 +30,7 @@ class MySqlUpdateBuilder implements IInsertUpdateBuilder {
         return $query;
     }
 
-    // PHP's native array_diff pisses me off, and as far as I can tell, doesn't work properly under certain conditions. Bug report submitted.
+    // Find changes.
     function array_diff_proper($array_a, $array_b) {
         $return = array();
         foreach ($array_a as $key => $value) {

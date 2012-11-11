@@ -1,4 +1,6 @@
 <?php
+// TODO: Luke has some good ideas about ways to improve this.
+// Off the top of my head I think he mentioned addMessage etc. Perhaps we need to call it LogControl or something more generic.
 class ErrorControl {
 
     var $errors = null;
@@ -11,6 +13,7 @@ class ErrorControl {
         return $this->errors;
     }
 
+    // Went a little OTT with the tabWidth stuff.
     public function getErrorList($tabWidth) {
         if ($this->errors == null) return false;
         $html = "$tabWidth\t<ul>\n" .
