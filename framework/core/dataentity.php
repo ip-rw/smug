@@ -27,7 +27,7 @@ class DataEntity {
             if ($field->column == $column) {
                 switch ($field->type) {
                     case SMUG_TYPE_DATE:
-                        $value = date("Y-m-d", strtotime($value));
+                        $value = date("Y-m-d H:i:s", strtotime($value));
                         break;
                     default:
                         break;

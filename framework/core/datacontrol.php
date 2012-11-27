@@ -190,10 +190,14 @@ class DataControl {
         $queryBuilder = DBDriver::getInsertUpdateQueryBuilder($dataEntity);
         $isInsert = $dataEntity->isNew;
         $statement = $queryBuilder->getStatement();
-        $statement->execute();
-        if ($isInsert == true) {
-            $lastId = $this->connection->lastInsertId();
-            $dataEntity->data[$this->key] = $lastId;
+        try {
+            $statement->execute();
+            if ($isInsert == true) {
+                $lastId = $this->connection->lastInsertId();
+                $dataEntity->data[$this->key] = $lastId;
+            }
+        } catch (PDOException $e) {
+            $this->errorControl->addError("DB Error: " . strval($e));
         }
         if ($this->errorControl->hasErrors() == false) {
             return (!isset($lastId) || $lastId == null) ? true : $lastId;
