@@ -136,6 +136,7 @@ class DataControl {
         foreach ($this->fieldMeta as $field) {
             if ($field->column != $this->key) {
                 $value = $dataEntity->data[$field->column];
+                $allowNulls = !$field->notNull;
                 if ($field->notNull == true) {
                     if ($value === null || $value === "") {
                         $this->errorControl->addError("'" . $field->name . "' cannot be left empty.");
@@ -143,13 +144,13 @@ class DataControl {
                     }
                 }
                 if ($field->type == SMUG_TYPE_INTEGER) {
-                    if (!is_numeric($value)) {
+                    if (!is_numeric($value) && !($allowNulls && $value == null)) {
                         $this->errorControl->addError("'" . $field->name . "' is not a number.");
                         $validates = false;
                     }
                 }
                 if ($field->type == SMUG_TYPE_DATE) {
-                    if (strtotime($value) === false) {
+                    if (strtotime($value) === false && !($allowNulls && $value == null)) {
                         $this->errorControl->addError("'" . $field->name . "' is not a valid timestamp.");
                         $validates = false;
                     }
