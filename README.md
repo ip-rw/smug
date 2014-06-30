@@ -1,3 +1,6 @@
+NB:
+In case there's any confusion, there are much much better for doing what this does. This was written 6+ years ago. It's here (and we added code recently) because it's actually a great little project to play with if you want to learn about DB abstraction, this doesn't and will never use composer. iirc it doesn't even use namespaces for similar reasons )
+
 SMUG
 ====
 
